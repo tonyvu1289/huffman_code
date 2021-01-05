@@ -3,3 +3,5 @@
 File dữ liệu cần nén : nguoidep.txt
 File kết quả sau khi thực hiện nén file dữ liệu : nguoidep.huf
 File demo kết quả giải nén (unzip) file được nén : TrucAnh.txt
+Folder document :
+-Final_CTDL.pdf : ý tưởng cho huffman, nằm ở bài 1
