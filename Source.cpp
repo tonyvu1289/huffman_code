@@ -28,7 +28,6 @@ int exist(vector<HuffMan_number> array, char x);
 int exist(char* str, char x);
 void sort(vector<HuffMan_number>& ar);
 HNode* CreateHNode(vector<HuffMan_number> array);
-void insertHNode(vector<HNode*>& array, HNode* x);
 void parent_data(HNode* parent, HNode* a, HNode* b);
 void get_code(vector<HuffMan_number>& array);
 int find_code(char x, vector<HuffMan_number> array);
@@ -126,22 +125,11 @@ HNode* CreateHNode(vector<HuffMan_number> data_array)
 		parent->right = b;
 		parent->number = a->number + b->number;
 		parent_data(parent, a, b);
-		insertHNode(node_array, parent);
+		node_array.insert(node_array.begin(), parent);
 	}
 	return node_array[0];
 }
-void insertHNode(vector<HNode*>& array, HNode* x)
-{
-	array.push_back(x);
-	int i = array.size() - 1;
-	while (i != 0 && array[i]->number >= array[i - 1]->number)
-	{
-		HNode* temp = array[i];
-		array[i] = array[i - 1];
-		array[i - 1] = temp;
-		i--;
-	}
-}
+
 void parent_data(HNode* parent, HNode* a, HNode* b)
 {
 	int i = 0;
