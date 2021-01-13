@@ -1,2 +1,0 @@
-G:\Deadline HKI nam 2\DataStructure\huffman_code\x64\Debug\huffman_code.exe
-G:\Deadline HKI nam 2\DataStructure\huffman_code\x64\Debug\huffman_code.pdb
