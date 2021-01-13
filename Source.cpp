@@ -28,6 +28,8 @@ int exist(vector<HuffMan_number> array, char x);
 int exist(char* str, char x);
 void sort(vector<HuffMan_number>& ar);
 HNode* CreateHNode(vector<HuffMan_number> array);
+void insertHNode(vector<HNode*>& array, HNode* x);
+int BinarySearchHNode(vector<HNode*>& a, int left, int right, HNode* key);
 void parent_data(HNode* parent, HNode* a, HNode* b);
 void get_code(vector<HuffMan_number>& array);
 int find_code(char x, vector<HuffMan_number> array);
@@ -35,6 +37,7 @@ int find_code(char x, vector<HuffMan_number> array);
 void print_numberlist(vector<HuffMan_number> ar);
 void print2D(HNode* root);
 void print2DUtil(HNode* root, int space);
+int check(vector<HNode*> a);
 void print_HuffManCode(vector<HuffMan_number> ar);
 
 void OnBit(unsigned char& byte, int position);
@@ -95,7 +98,7 @@ void sort(vector<HuffMan_number>& ar)
 	for (int i = 0; i < ar.size() - 1; i++)
 	{
 		for (int j = i + 1; j < ar.size(); j++)
-			if (ar[i].number < ar[j].number)
+			if (ar[i].number > ar[j].number)
 			{
 				HuffMan_number temp = ar[i];
 				ar[i] = ar[j];
@@ -116,18 +119,40 @@ HNode* CreateHNode(vector<HuffMan_number> data_array)
 	while (node_array.size() > 1)
 	{
 		//Create parent node of 2 least appear node
-		HNode* a = node_array.back();
-		node_array.pop_back();
-		HNode* b = node_array.back();
-		node_array.pop_back();
+		HNode* a = node_array[0];
+		node_array.erase(node_array.begin());
+		HNode* b = node_array[0];
+		node_array.erase(node_array.begin());
 		HNode* parent = new HNode();
 		parent->left = a;
 		parent->right = b;
 		parent->number = a->number + b->number;
 		parent_data(parent, a, b);
-		node_array.insert(node_array.begin(), parent);
+		insertHNode(node_array, parent);
+	//	cout << check(node_array);
 	}
 	return node_array[0];
+}
+void insertHNode(vector<HNode*>& array, HNode* x)
+{
+	int pos = BinarySearchHNode(array, 0, array.size() - 1, x);
+	vector<HNode*>::iterator nth = array.begin() + pos;
+
+	array.insert(nth, x);
+}
+int BinarySearchHNode(vector<HNode*>& a, int left, int right, HNode* key)
+{
+	if (right<=0)
+		return 0;
+	if (right <= left)
+		return (key->number > a[left]->number) ?
+		(left + 1) : left;
+	int mid = (left + right) / 2;
+	if (key->number == a[mid]->number)
+		return mid + 1;
+	if (key->number > a[mid]->number)
+		return BinarySearchHNode(a, mid + 1, right, key);
+	return BinarySearchHNode(a, left, mid - 1, key);
 }
 
 void parent_data(HNode* parent, HNode* a, HNode* b)
@@ -209,10 +234,19 @@ void print2DUtil(HNode* root, int space)
 	cout << endl;
 	for (int i = COUNT; i < space; i++)
 		cout << " ";
-	cout << root->data << "_" << root->number << "\n";
+	cout << "_" << root->number << "\n";
 
 	// Process left child  
 	print2DUtil(root->left, space);
+}
+int check(vector<HNode*> a)
+{
+	for (int i = 0; i < a.size()-1; i++)
+	{
+		if (a[i]->number > a[i + 1]->number)
+			return 0;
+	}
+	return 1;
 }
 
 void OnBit(unsigned char& byte, int position)
@@ -401,7 +435,6 @@ void DeCode_HuffManFile(string inputFile, string outputFile)
 			}
 			if (j <= 7) // chua doc het day bit cua ch -> da doc duoc chu can output -> xuat ra file
 			{
-				//cout << temp->data;
 				output << temp->data;
 				temp = root;
 				number_of_char--;
@@ -436,19 +469,28 @@ void DeCode_HuffManFile(string inputFile, string outputFile)
 	input.close();
 	output.close();
 }
-
+void LNR(HNode* root)
+{
+	if (root == nullptr)
+		return;
+	LNR(root->left);
+	LNR(root->right);
+	cout << root->number << endl;
+}
 void main()
 {
-	string FileName = "nguoidep.txt";
-	string FileName_out = "nguoidep.huf";
+	string FileName = "TrucAnh.txt";
+	string FileName_out = "input_zip.huf";
 	vector<HuffMan_number> number;
 	HNode* root;
 	input_array(number, FileName);
 	sort(number);
 	//print_numberlist(number); //debug
 	root = CreateHNode(number);
+	//print2DUtil(root,10);
+	//LNR(root);
 	get_code(number);
 	writeHuffManTree(FileName_out, number);
 	write_code_2(FileName_out, number, FileName);
-	DeCode_HuffManFile(FileName_out, "TrucAnh.txt");//decode, neu khong co nhu cau decode thi xoa dong nay
+	DeCode_HuffManFile(FileName_out, "unzip.txt");//decode, neu khong co nhu cau decode thi xoa dong nay
 }

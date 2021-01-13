@@ -1,0 +1,7 @@
+﻿  Source.cpp
+G:\Deadline HKI nam 2\DataStructure\huffman_code\Source.cpp(138,59): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+G:\Deadline HKI nam 2\DataStructure\huffman_code\Source.cpp(326,50): warning C4267: '+=': conversion from 'size_t' to 'int', possible loss of data
+G:\Deadline HKI nam 2\DataStructure\huffman_code\Source.cpp(376,41): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+G:\Deadline HKI nam 2\DataStructure\huffman_code\Source.cpp(399,11): warning C4244: 'initializing': conversion from 'std::streamoff' to 'int', possible loss of data
+G:\Deadline HKI nam 2\DataStructure\huffman_code\Source.cpp(481,1): warning C4326: return type of 'main' should be 'int' instead of 'void'
+  huffman_code.vcxproj -> G:\Deadline HKI nam 2\DataStructure\huffman_code\x64\Debug\huffman_code.exe
