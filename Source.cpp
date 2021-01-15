@@ -14,8 +14,7 @@ struct HuffMan_number {
 	char code[128] = { '\0' };
 };
 struct HNode {
-	//Sinh viên đề xuất phần lưu trữ dữ liệu của nút trong cây
-	char data[128];
+	char data[256];
 	int number;
 	//Gợi ý:
 	//unsigned char character; //Lưu trữ ký tự cần lưu
@@ -249,6 +248,7 @@ int check(vector<HNode*> a)
 	return 1;
 }
 
+//position là vị trí 7-i với i là vị trí cần on/off bit
 void OnBit(unsigned char& byte, int position)
 {
 	byte = byte | (1 << position);
@@ -303,8 +303,7 @@ void writeHuffManTree(string FileName, vector<HuffMan_number> array)
 	fstream output;
 	output.open(FileName, ios::out | ios::trunc | ios::binary);
 	output << array.size() << char(16);
-	for (int i = 0; i < array.size(); i++)
-	{
+	for (int i = 0; i < array.size(); i++){
 		output << array[i].character << char(16) << array[i].number << char(16);
 	}
 	output.close();
@@ -366,15 +365,11 @@ void write_code_2(string FileName_out, vector<HuffMan_number> array, string File
 	output.open(FileName_out, ios::out | ios::app | ios::binary);
 	char ch;
 	string binary_str="";
-	while (!input.eof())
-	{
+	while (!input.eof()){
 		int index;
-		while (binary_str.length() < 8)
-		{
-			if (!input.get(ch))
-			{
-				for (int i = binary_str.length(); i < 8; i++)
-				{
+		while (binary_str.length() < 8){
+			if (!input.get(ch)){
+				for (int i = binary_str.length(); i < 8; i++){
 					binary_str+='0';
 				}
 				break;
@@ -382,8 +377,7 @@ void write_code_2(string FileName_out, vector<HuffMan_number> array, string File
 			index = find_code(ch, array);
 			binary_str += array[index].code;
 		}
-		while (binary_str.length() >= 8)
-		{
+		while (binary_str.length() >= 8){
 			BinaryStringToChar(binary_str, ch);
 			output << ch;
 			binary_str.erase(0, 8);
@@ -479,8 +473,9 @@ void LNR(HNode* root)
 }
 void main()
 {
-	string FileName = "TrucAnh.txt";
-	string FileName_out = "input_zip.huf";
+	string FileName = "Tieng Y.txt";
+	string FileName_out = FileName+".huf";
+	string Filename_unzip = "unzip.txt";
 	vector<HuffMan_number> number;
 	HNode* root;
 	input_array(number, FileName);
@@ -492,5 +487,7 @@ void main()
 	get_code(number);
 	writeHuffManTree(FileName_out, number);
 	write_code_2(FileName_out, number, FileName);
+	cout << "Da nen xong! Bat dau giai nen...\n";
 	DeCode_HuffManFile(FileName_out, "unzip.txt");//decode, neu khong co nhu cau decode thi xoa dong nay
+	cout << "Giai nen thanh cong!\n";
 }
