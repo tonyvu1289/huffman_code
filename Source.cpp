@@ -473,14 +473,14 @@ void LNR(HNode* root)
 }
 void main()
 {
-	string FileName = "Tieng Y.txt";
+	string FileName = "Tieng Viet.txt";
 	string FileName_out = FileName+".huf";
 	string Filename_unzip = "unzip.txt";
 	vector<HuffMan_number> number;
 	HNode* root;
 	input_array(number, FileName);
 	sort(number);
-	//print_numberlist(number); //debug
+	print_numberlist(number); //debug
 	root = CreateHNode(number);
 	//print2DUtil(root,10);
 	//LNR(root);

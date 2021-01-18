@@ -368,15 +368,58 @@ Những văn bản mà các chứ không nằm trong bảng ASCII như Tiếng V
     \begin{center}
      \includegraphics[scale=1]{tisonen_TiengTrung.PNG}
     \end{center}
-    \caption{Tỉ số nén của văn bản Tiếng Trung : 75\%}
+    \caption{Tỉ số nén của văn bản Tiếng Trung : 74\%}
     \label{refhinh1}
     \end{figure}
 \end{center}
 
-\begin{thebibliography}{3}
+\section{Ứng dụng}
+Tuy giải thuật nén Huffman đã ra đời khá lâu nhưng vẫn có những ứng dụng quan trọng hiện nay.
+
+Tất cả những thuật toán nén như zip cũng lấy nền tảng là giải thuật Huffman làm gốc, có thể coi Huffman-code là "back-end" của các thuật toán nén hiện nay.
+
+Nói rộng hơn, tất cả những kiểu lưu trữ dữ liệu mà có sự lặp lại nhiều lần của các phần tử chứa thông tin đều có thể sử dụng giải thuật Huffman để tiết kiệm dữ liệu:
+
+\t - File văn bản : là file đơn giản nhất, các phần tử chứa thông tin ở đây là các byte kí tự. Đây cũng chính là thuật toán được cài đặt ở trên.
+
+\t - File hình ảnh : phần tử chứa thông tin ở đây là pixel. Trong thực tế, trong một file ảnh sẽ có nhiều
+ pixel có thông tin trùng nhau (xác suất trùng nhau có thể gia tăng bằng cách đồng hóa những pixel có
+  thông tin gần giống nhau bằng thuật toán). Khi đó, ta sẽ xem các pixel là những phần tử, sau đó lập bảng tần số 
+  , lập cây Huffman,... và nén các pixel của ảnh. Từ đó tiết kiệm được rất nhiều dung lượng. Tuy điều này sẽ làm 
+  giảm chất lượng ảnh vì đồng hóa các pixel nhưng vẫn chấp nhận được.
+
+  \t - File video : những phần tử chứa thông tin là các frame hình ảnh. Có thể phân hóa từng frame hình ảnh bằng cách thuật toán phức tạp.
+
+  Có thể phân những thuật toán nói trên làm 2 nhóm:\cite{4}
+  \subsection{Nén lossless}
+  Đây là kiểu nén không mất dữ liệu, có những đặc điểm sau :
+  - Dữ liệu có thể được giải nén ra với tình trạng giống với từng bit của dữ liệu trước khi nén.
+  - Được dùng trong nén file (.zip).
+  - Hệ số nén trung bình (từ 2:1 đến 3:1). 
+  - Được sử dụng trong những ứng dụng đặc biệt quan trọng như ảnh y học, lưu trữ thông tin hộp đen,\dots
+  - File format sử dụng nén lossless có thể kể đến là PNG (hình ảnh), MP3 (âm thanh), MPEG-4/HD-ACC (video).
+  \subsection{Nén lossy}
+  Còn được gọi là nén mất mát dữ liệu, có thể dùng những thuật toán để làm xuất hiện nhiều phần tử giống nhau :
+  - Dữ liệu giải nén ra có thể không giống từng bit với dữ liệu trước khi nén.
+  - Hệ số nén tương đối cao (từ 20:1 - 40:1).
+  - File format sử dụng nén lossless có thể kể đến là JPEG(hình ảnh), MPEG(video),\dots
+  Trong thực tế, file video, hình ảnh dân dụng sẽ sử dụng nén lossy vì sự khác biệt khi mất mát dữ liệu rất khó phân 
+  biệt bằng mắt thường.
+
+\begin{center}
+    \begin{figure}[H]
+    \begin{center}
+     \includegraphics[scale=0.4]{lossy_lossless.jpg}
+    \end{center}
+    \caption{Sự khác biệt không đáng kể giữa ảnh gốc/lossless và lossy }
+    \label{refhinh1}
+    \end{figure}
+\end{center}
+\begin{thebibliography}{4}
 \bibitem{1}Đại học Khoa học tự nhiên TPHCM . {\it Tài liệu hướng dẫn thực hành học phần CS104 – Cấu trúc dữ liệu - ITEC}. 2020.
 \bibitem{2}Thomas H.Cormen  .{\it  Introduction to Algorithms}. 2009.
 \bibitem{3}{https://vi.wikipedia.org/wiki/M\%C3\%A3\_h\%C3\%B3a\_Huffman}.
+\bibitem{4}Kumar, Vikas. (2015). {\it Compression Techniques Vs Huffman Coding. International Journal of Informatics and Communication Technology (IJ-ICT)}. 4. 29. 10.11591/ijict.v4i1.pp29-37. 
 
 \end{thebibliography}
 \end{document}

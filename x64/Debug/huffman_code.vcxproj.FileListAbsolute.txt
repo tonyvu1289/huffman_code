@@ -1,0 +1,4 @@
+C:\Users\PC\Desktop\New folder\x64\Debug\huffman_code.exe
+C:\Users\PC\Desktop\New folder\x64\Debug\huffman_code.pdb
+C:\Users\PC\OneDrive - VNU-HCMUS\Desktop\New folder\x64\Debug\huffman_code.exe
+C:\Users\PC\OneDrive - VNU-HCMUS\Desktop\New folder\x64\Debug\huffman_code.pdb
